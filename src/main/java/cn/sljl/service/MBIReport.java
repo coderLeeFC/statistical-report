@@ -476,25 +476,27 @@ public class MBIReport {
 
     }
 
-    //监理生产部门
+    /**
+     * 监理-生产部门
+     */
     private void getSljlMBC(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         //确认收入
-        double[] sljlRevenueRecognitionTytm = sljlMBCCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001");
-        double[] sljlRevenueRecognitionTy   = sljlMBCCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001");
-        double[] sljlRevenueRecognitionLytm = sljlMBCCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001");
-        double[] sljlRevenueRecognitionLy   = sljlMBCCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001");
+        double[] sljlRevenueRecognitionTytm = deptUtils.sljlManufactureCredit(connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001");
+        double[] sljlRevenueRecognitionTy   = deptUtils.sljlManufactureCredit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001");
+        double[] sljlRevenueRecognitionLytm = deptUtils.sljlManufactureCredit(connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001");
+        double[] sljlRevenueRecognitionLy   = deptUtils.sljlManufactureCredit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001");
 
         //挂账收入
-        double[] sljlInvoicingRevenueTytm = sljlMBCCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001","600101");
-        double[] sljlInvoicingRevenueTy   = sljlMBCCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001","600101");
-        double[] sljlInvoicingRevenueLytm = sljlMBCCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001","600101");
-        double[] sljlInvoicingRevenueLy   = sljlMBCCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001","600101");
+        double[] sljlInvoicingRevenueTytm = deptUtils.sljlManufactureCredit(connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001","600101");
+        double[] sljlInvoicingRevenueTy   = deptUtils.sljlManufactureCredit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001","600101");
+        double[] sljlInvoicingRevenueLytm = deptUtils.sljlManufactureCredit(connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001","600101");
+        double[] sljlInvoicingRevenueLy   = deptUtils.sljlManufactureCredit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5),"6001","600101");
 
         //主营业务成本
-        double[] sljlMBCTytm= sljlMBCDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5), "6401");
-        double[] sljlMBCTy  = sljlMBCDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5), "6401");
-        double[] sljlMBCLytm= sljlMBCDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5), "6401");
-        double[] sljlMBCLy  = sljlMBCDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5), "6401");
+        double[] sljlMBCTytm= deptUtils.sljlManufactureDebit(connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5), "6401");
+        double[] sljlMBCTy  = deptUtils.sljlManufactureDebit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5), "6401");
+        double[] sljlMBCLytm= deptUtils.sljlManufactureDebit(connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5), "6401");
+        double[] sljlMBCLy  = deptUtils.sljlManufactureDebit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5), "6401");
 
         //毛利率
         double[] sljlGrossMarginTytm=new double[sljlMBCTytm.length];
@@ -527,34 +529,9 @@ public class MBIReport {
                 sljlGrossMarginLytm,
                 sljlGrossMarginLy  );
     }
-    private double[] sljlMBCDebit(Connection connection, CommonSql commonSql, DeptUtils deptUtils,
-                                  String startDate, String endDate, String accountBook, String accountBook1, String ledgerAccount) throws SQLException {
-        return deptUtils.sljlManufactureDeptSum(connection,
-                commonSql.debitAmount(startDate,endDate,accountBook,ledgerAccount),
-                commonSql.debitAmount(startDate,endDate,accountBook1,ledgerAccount));
-    }
-    private double[] sljlMBCCredit(Connection connection, CommonSql commonSql, DeptUtils deptUtils,
-                                   String startDate, String endDate, String accountBook, String accountBook1, String ledgerAccount) throws SQLException {
-        return deptUtils.sljlManufactureDeptSum(connection,
-                commonSql.creditAmount(startDate,endDate,accountBook,ledgerAccount),
-                commonSql.creditAmount(startDate,endDate,accountBook1,ledgerAccount));
-    }
-    private double[] sljlMBCCredit(Connection connection, CommonSql commonSql, DeptUtils deptUtils,
-                                   String startDate, String endDate, String accountBook, String accountBook1, String ledgerAccount, String specificAccount) throws SQLException {
-        return deptUtils.sljlManufactureDeptSum(connection,
-                commonSql.creditAmount(startDate,endDate,accountBook,ledgerAccount,specificAccount),
-                commonSql.creditAmount(startDate,endDate,accountBook1,ledgerAccount,specificAccount));
-    }
 
     /**
      * 监理-管理部门
-     * @param connection
-     * @param workbook
-     * @param sheet
-     * @param dateUtils
-     * @param commonSql
-     * @param deptUtils
-     * @throws SQLException
      */
     private void getSljlOverhead(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         //监理管理费用

@@ -113,7 +113,6 @@ public class MainReport {
                 endOfLastYearThisMonth1);
     }
 
-
     private void getZjzx(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         //现金流入：应收账款-开票（贷方）
         double zjzxInTytm = deptUtils.singleDeptCredit(connection, commonSql,Constant.ZJZX, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);

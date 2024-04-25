@@ -41,6 +41,13 @@ public class DeptUtils {
                 commonSql.debitAmount(startDate,endDate,accountBook1,ledgerAccount,specificAccount));
     }
 
+    public double[] sljlManufactureDebit(Connection connection, CommonSql commonSql, String startDate, String endDate,
+                                          String accountBook, String accountBook1, String ledgerAccount) throws SQLException {
+        return sljlManufactureDeptSum(connection,
+                commonSql.debitAmount(startDate,endDate,accountBook,ledgerAccount),
+                commonSql.debitAmount(startDate,endDate,accountBook1,ledgerAccount));
+    }
+
     /**
      * 主表：监理-生产部门【贷方】
      * @param connection
@@ -61,6 +68,13 @@ public class DeptUtils {
                 commonSql.creditAmount(startDate,endDate,accountBook1,ledgerAccount,specificAccount));
     }
 
+    public double[] sljlManufactureCredit(Connection connection, CommonSql commonSql,String startDate, String endDate,
+                                   String accountBook, String accountBook1, String ledgerAccount) throws SQLException {
+        return sljlManufactureDeptSum(connection,
+                commonSql.creditAmount(startDate,endDate,accountBook,ledgerAccount),
+                commonSql.creditAmount(startDate,endDate,accountBook1,ledgerAccount));
+    }
+
     /**
      * 监理-管理部门【借方】
      * @param connection
@@ -77,12 +91,39 @@ public class DeptUtils {
         return sljlOverheadDeptSum(connection,commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount));
     }
 
+    /**
+     * 评估咨询【贷方】
+     * @param connection
+     * @param commonSql
+     * @param startDate
+     * @param endDate
+     * @param accountBook
+     * @param accountBook1
+     * @param ledgerAccount
+     * @param specificAccount
+     * @return
+     * @throws SQLException
+     */
     public double[] pgzxCredit(Connection connection, CommonSql commonSql,String startDate, String endDate,
                                String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
         return pgzxDeptSum(connection,
                 commonSql.creditAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount),
                 commonSql.creditAmount(startDate, endDate, accountBook1, ledgerAccount,specificAccount));
     }
+
+    /**
+     * 评估咨询【借方】
+     * @param connection
+     * @param commonSql
+     * @param startDate
+     * @param endDate
+     * @param accountBook
+     * @param accountBook1
+     * @param ledgerAccount
+     * @param specificAccount
+     * @return
+     * @throws SQLException
+     */
     public double[] pgzxDebit(Connection connection, CommonSql commonSql, String startDate, String endDate,
                               String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
         return pgzxDeptSum(connection,

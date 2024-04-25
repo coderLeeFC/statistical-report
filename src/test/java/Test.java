@@ -26,14 +26,14 @@ public class Test {
         XSSFSheet sheetMain = workbook.createSheet("主表");//创建sheet
         new MainReport().mainMethod(connection,workbook, sheetMain,titleModel);//设置数据
 
-//        XSSFSheet sheetMBI = workbook.createSheet("毛利率");//创建sheet
-//        new MBIReport().mainMethod(connection,workbook, sheetMBI,titleModel);//设置数据
-//
-//        XSSFSheet sheetCFS = workbook.createSheet("现金流");//创建sheet
-//        new CFSReport().mainMethod(connection,workbook, sheetCFS,titleModel);//设置数据
-//
-//        XSSFSheet sheetSR = workbook.createSheet("人工成本");//创建sheet
-//        new SalaryReport().mainMethod(connection,workbook, sheetSR,titleModel);//设置数据
+        XSSFSheet sheetMBI = workbook.createSheet("毛利率");//创建sheet
+        new MBIReport().mainMethod(connection,workbook, sheetMBI,titleModel);//设置数据
+
+        XSSFSheet sheetCFS = workbook.createSheet("现金流");//创建sheet
+        new CFSReport().mainMethod(connection,workbook, sheetCFS,titleModel);//设置数据
+
+        XSSFSheet sheetSR = workbook.createSheet("人工成本");//创建sheet
+        new SalaryReport().mainMethod(connection,workbook, sheetSR,titleModel);//设置数据
 
         FileOutputStream fileOutputStream = new FileOutputStream("D:\\综合统计报表x.xlsx");
         workbook.write(fileOutputStream);
