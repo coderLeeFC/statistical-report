@@ -35,25 +35,25 @@ public class MainReport {
 
     private void getPgzx(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         //现金流入：应收账款-开票（贷方）
-        double[] pgzxInTytm = pgzxCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
-        double[] pgzxInLytm = pgzxCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] pgzxInTytm = deptUtils.pgzxCredit(connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] pgzxInLytm = deptUtils.pgzxCredit(connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
 
         //期末应收账款
         //1.应收账款-开票（期初）
-        double[] beginOfLastYear = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getStartOfLastYear(Constant.THIS_MONTH_END), dateUtils.getStartOfLastYear(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
-        double[] beginOfThisYear = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getStartOfYear(Constant.THIS_MONTH_END),     dateUtils.getStartOfYear(Constant.THIS_MONTH_END),    Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] beginOfLastYear = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getStartOfLastYear(Constant.THIS_MONTH_END), dateUtils.getStartOfLastYear(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] beginOfThisYear = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getStartOfYear(Constant.THIS_MONTH_END),     dateUtils.getStartOfYear(Constant.THIS_MONTH_END),    Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
 
         //2.应收账款-开票（借方累计）
-        double[] beginOfThisYearThisMonthDebit = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , dateUtils.getLastMonthEnd(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
-        double[] endOfThisYearThisMonthDebit   = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , Constant.THIS_MONTH_END,                            Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
-        double[] beginOfLastYearThisMonthDebit = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getLastMonthEnd1(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
-        double[] endOfLastYearThisMonthDebit   = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),   Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] beginOfThisYearThisMonthDebit = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , dateUtils.getLastMonthEnd(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] endOfThisYearThisMonthDebit   = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , Constant.THIS_MONTH_END,                            Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] beginOfLastYearThisMonthDebit = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getLastMonthEnd1(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] endOfLastYearThisMonthDebit   = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),   Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
 
         //3.应收账款-开票（贷方累计）
-        double[] beginOfThisYearThisMonthCredit = pgzxCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , dateUtils.getLastMonthEnd(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
-        double[] endOfThisYearThisMonthCredit   = pgzxCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , Constant.THIS_MONTH_END,                            Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
-        double[] beginOfLastYearThisMonthCredit = pgzxCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getLastMonthEnd1(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
-        double[] endOfLastYearThisMonthCredit   = pgzxCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),   Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] beginOfThisYearThisMonthCredit = deptUtils.pgzxCredit(connection, commonSql,  dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , dateUtils.getLastMonthEnd(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] endOfThisYearThisMonthCredit   = deptUtils.pgzxCredit(connection, commonSql,  dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , Constant.THIS_MONTH_END,                            Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] beginOfLastYearThisMonthCredit = deptUtils.pgzxCredit(connection, commonSql,  dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getLastMonthEnd1(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] endOfLastYearThisMonthCredit   = deptUtils.pgzxCredit(connection, commonSql,  dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),   Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
 
         //4.期末应收账款
         double[] beginOfThisYearThisMonth=new double[beginOfLastYear.length];
@@ -70,20 +70,20 @@ public class MainReport {
 
         //期末合同资产
         //1.应收账款-暂估（期初）
-        double[] beginOfLastYear1 = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getStartOfLastYear(Constant.THIS_MONTH_END), dateUtils.getStartOfLastYear(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
-        double[] beginOfThisYear1 = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getStartOfYear(Constant.THIS_MONTH_END),     dateUtils.getStartOfYear(Constant.THIS_MONTH_END),    Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
+        double[] beginOfLastYear1 = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getStartOfLastYear(Constant.THIS_MONTH_END), dateUtils.getStartOfLastYear(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
+        double[] beginOfThisYear1 = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getStartOfYear(Constant.THIS_MONTH_END),     dateUtils.getStartOfYear(Constant.THIS_MONTH_END),    Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
 
         //2.应收账款-暂估（借方累计）
-        double[] beginOfThisYearThisMonthDebit1 = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , dateUtils.getLastMonthEnd(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
-        double[] endOfThisYearThisMonthDebit1   = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , Constant.THIS_MONTH_END,                            Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
-        double[] beginOfLastYearThisMonthDebit1 = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getLastMonthEnd1(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
-        double[] endOfLastYearThisMonthDebit1   = pgzxDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),   Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
+        double[] beginOfThisYearThisMonthDebit1 = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , dateUtils.getLastMonthEnd(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
+        double[] endOfThisYearThisMonthDebit1   = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , Constant.THIS_MONTH_END,                            Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
+        double[] beginOfLastYearThisMonthDebit1 = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getLastMonthEnd1(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
+        double[] endOfLastYearThisMonthDebit1   = deptUtils.pgzxDebit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),   Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
 
         //3.应收账款-暂估（贷方累计）
-        double[] beginOfThisYearThisMonthCredit1 = pgzxCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , dateUtils.getLastMonthEnd(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
-        double[] endOfThisYearThisMonthCredit1   = pgzxCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , Constant.THIS_MONTH_END,                            Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
-        double[] beginOfLastYearThisMonthCredit1 = pgzxCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getLastMonthEnd1(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
-        double[] endOfLastYearThisMonthCredit1   = pgzxCredit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),   Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
+        double[] beginOfThisYearThisMonthCredit1 = deptUtils.pgzxCredit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , dateUtils.getLastMonthEnd(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
+        double[] endOfThisYearThisMonthCredit1   = deptUtils.pgzxCredit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END) , Constant.THIS_MONTH_END,                            Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
+        double[] beginOfLastYearThisMonthCredit1 = deptUtils.pgzxCredit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getLastMonthEnd1(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
+        double[] endOfLastYearThisMonthCredit1   = deptUtils.pgzxCredit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),   Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_ESTIMATED);
 
         //4.期末合同资产
         double[] beginOfThisYearThisMonth1=new double[beginOfLastYear.length];
@@ -112,18 +112,7 @@ public class MainReport {
                 beginOfLastYearThisMonth1,
                 endOfLastYearThisMonth1);
     }
-    private double[] pgzxCredit(Connection connection, CommonSql commonSql, DeptUtils deptUtils,
-                                   String startDate, String endDate, String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
-        return deptUtils.pgzxDeptSum(connection,
-                commonSql.creditAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount),
-                commonSql.creditAmount(startDate, endDate, accountBook1, ledgerAccount,specificAccount));
-    }
-    private double[] pgzxDebit(Connection connection, CommonSql commonSql, DeptUtils deptUtils,
-                                String startDate, String endDate, String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
-        return deptUtils.pgzxDeptSum(connection,
-                commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount),
-                commonSql.debitAmount(startDate, endDate, accountBook1, ledgerAccount,specificAccount));
-    }
+
 
     private void getZjzx(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         //现金流入：应收账款-开票（贷方）

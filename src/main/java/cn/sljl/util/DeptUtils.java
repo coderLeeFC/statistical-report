@@ -77,6 +77,19 @@ public class DeptUtils {
         return sljlOverheadDeptSum(connection,commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount));
     }
 
+    public double[] pgzxCredit(Connection connection, CommonSql commonSql,String startDate, String endDate,
+                               String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
+        return pgzxDeptSum(connection,
+                commonSql.creditAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount),
+                commonSql.creditAmount(startDate, endDate, accountBook1, ledgerAccount,specificAccount));
+    }
+    public double[] pgzxDebit(Connection connection, CommonSql commonSql, String startDate, String endDate,
+                              String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
+        return pgzxDeptSum(connection,
+                commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount),
+                commonSql.debitAmount(startDate, endDate, accountBook1, ledgerAccount,specificAccount));
+    }
+
     /**
      * 单部门【借方】
      * @param connection
