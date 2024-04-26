@@ -43,23 +43,23 @@ public class MBIReport {
         double[] pgzxRevenueRecognitionLytm = deptUtils.pgzxCredit(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.MAIN_BUSINESS_INCOME);
         double[] pgzxRevenueRecognitionLy   = deptUtils.pgzxCredit(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.MAIN_BUSINESS_INCOME);
 
-        //挂账收入！！！
-        double[] pgzxInvoicingRevenueTytm = deptUtils.pgzxCredit(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.MAIN_BUSINESS_INCOME,"600101");
-        double[] pgzxInvoicingRevenueTy   = deptUtils.pgzxCredit(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.MAIN_BUSINESS_INCOME,"600101");
-        double[] pgzxInvoicingRevenueLytm = deptUtils.pgzxCredit(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.MAIN_BUSINESS_INCOME,"600101");
-        double[] pgzxInvoicingRevenueLy   = deptUtils.pgzxCredit(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.MAIN_BUSINESS_INCOME,"600101");
+        //挂账收入
+        double[] pgzxInvoicingRevenueTytm = deptUtils.pgzx(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.MAIN_BUSINESS_INCOME,Constant.MAIN_BUSINESS_INCOME_INVOICING,Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] pgzxInvoicingRevenueTy   = deptUtils.pgzx(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.MAIN_BUSINESS_INCOME,Constant.MAIN_BUSINESS_INCOME_INVOICING,Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] pgzxInvoicingRevenueLytm = deptUtils.pgzx(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.MAIN_BUSINESS_INCOME,Constant.MAIN_BUSINESS_INCOME_INVOICING,Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
+        double[] pgzxInvoicingRevenueLy   = deptUtils.pgzx(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3),Constant.MAIN_BUSINESS_INCOME,Constant.MAIN_BUSINESS_INCOME_INVOICING,Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
 
-        //主营业务成本！！！
-        double[] pgzxMBCTytm= deptUtils.pgzxDebit(Constant.SDSJ_DEPT.get(4),connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3), "6401","1403");
-        double[] pgzxMBCTy  = deptUtils.pgzxDebit(Constant.SDSJ_DEPT.get(4),connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3), "6401","1403");
-        double[] pgzxMBCLytm= deptUtils.pgzxDebit(Constant.SDSJ_DEPT.get(4),connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3), "6401","1403");
-        double[] pgzxMBCLy  = deptUtils.pgzxDebit(Constant.SDSJ_DEPT.get(4),connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3), "6401","1403");
+        //主营业务成本
+        double[] pgzxMBCTytm= deptUtils.pgzx(Constant.SDSJ_DEPT.get(4),connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3), Constant.MAIN_BUSINESS_COST,Constant.INVENTORY);
+        double[] pgzxMBCTy  = deptUtils.pgzx(Constant.SDSJ_DEPT.get(4),connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3), Constant.MAIN_BUSINESS_COST,Constant.INVENTORY);
+        double[] pgzxMBCLytm= deptUtils.pgzx(Constant.SDSJ_DEPT.get(4),connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3), Constant.MAIN_BUSINESS_COST,Constant.INVENTORY);
+        double[] pgzxMBCLy  = deptUtils.pgzx(Constant.SDSJ_DEPT.get(4),connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(3), Constant.MAIN_BUSINESS_COST,Constant.INVENTORY);
 
         //管理费用（设计）
-        double pgzxOCTytm= pgzxOCDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(3), "6602");
-        double pgzxOCTy  = pgzxOCDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(3), "6602");
-        double pgzxOCLytm= pgzxOCDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(3), "6602");
-        double pgzxOCLy  = pgzxOCDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(3), "6602");
+        double pgzxOCTytm= deptUtils.pgzxOCDebit(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(3), Constant.OVERHEAD);
+        double pgzxOCTy  = deptUtils.pgzxOCDebit(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(3), Constant.OVERHEAD);
+        double pgzxOCLytm= deptUtils.pgzxOCDebit(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(3), Constant.OVERHEAD);
+        double pgzxOCLy  = deptUtils.pgzxOCDebit(Constant.SDSJ_DEPT_INCOME.get(4),connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(3), Constant.OVERHEAD);
 
         //设计总成本
         pgzxMBCTytm[2]+=pgzxOCTytm;
@@ -103,10 +103,6 @@ public class MBIReport {
                 pgzxGrossMarginTy,
                 pgzxGrossMarginLytm,
                 pgzxGrossMarginLy  );
-    }
-    private double pgzxOCDebit(Connection connection, CommonSql commonSql, DeptUtils deptUtils,
-                                 String startDate, String endDate, String accountBook,String ledgerAccount) throws SQLException {
-        return deptUtils.pgzxDeptSum(connection,commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount));
     }
 
     private void getSdsj(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {

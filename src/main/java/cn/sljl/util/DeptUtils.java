@@ -54,6 +54,25 @@ public class DeptUtils {
         return sljlOverheadDeptSum(connection,commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount));
     }
 
+    public double[] pgzx(String deptNum,Connection connection, CommonSql commonSql,String startDate, String endDate,
+                               String accountBook,String accountBook1,String ledgerAccount,String specificAccount, String ledgerAccount1,String specificAccount1) throws SQLException {
+        return pgzxDeptSum(deptNum,connection,
+                commonSql.creditAmount(startDate, endDate, accountBook, ledgerAccount, specificAccount),
+                commonSql.debitAmount(startDate, endDate, accountBook1,ledgerAccount1,specificAccount1));
+    }
+
+    public double[] pgzx(String deptNum,Connection connection, CommonSql commonSql,String startDate, String endDate,
+                         String accountBook,String accountBook1,String ledgerAccount, String ledgerAccount1) throws SQLException {
+        return pgzxDeptSum(deptNum,connection,
+                commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount),
+                commonSql.debitAmount(startDate, endDate, accountBook1,ledgerAccount1));
+    }
+
+    public double pgzxOCDebit(String deptNum,Connection connection, CommonSql commonSql,String startDate, String endDate,
+                               String accountBook,String ledgerAccount) throws SQLException {
+        return pgzxDeptSum(deptNum,connection,commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount));
+    }
+
     public double[] pgzxCredit(String deptNum,Connection connection, CommonSql commonSql,String startDate, String endDate,
                                String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
         return pgzxDeptSum(deptNum,connection,
@@ -103,6 +122,18 @@ public class DeptUtils {
     public double singleDeptDebit(Connection connection, CommonSql commonSql,String startDate,String endDate,
                                   String accountBook, String ledgerAccount, String specificAccount) throws SQLException {
         return singleDeptSum(connection,commonSql.debitAmount(startDate,endDate,accountBook,ledgerAccount,specificAccount));
+    }
+
+    public double singleDeptDebit1(Connection connection, CommonSql commonSql, String startDate, String endDate,
+                                   String accountBook, String accountBook1, String ledgerAccount, String specificAccount) throws SQLException {
+        return singleDeptSum(connection,commonSql.singleDebitAmount(startDate,endDate,accountBook,ledgerAccount,specificAccount))+
+                singleDeptSum(connection,commonSql.singleDebitAmount(startDate,endDate,accountBook1,ledgerAccount,specificAccount));
+    }
+
+    public double singleDeptCredit1(Connection connection, CommonSql commonSql, String startDate, String endDate,
+                                     String accountBook, String accountBook1, String ledgerAccount, String specificAccount) throws SQLException {
+        return singleDeptSum(connection,commonSql.singleCreditAmount(startDate,endDate,accountBook,ledgerAccount,specificAccount))+
+                singleDeptSum(connection,commonSql.singleCreditAmount(startDate,endDate,accountBook1,ledgerAccount,specificAccount));
     }
 
     public double singleDeptDebit(String deptNum,Connection connection, CommonSql commonSql,String startDate, String endDate,
@@ -163,7 +194,7 @@ public class DeptUtils {
         ResultSet resultSet = statement.executeQuery();
         double[] sum = new double[3];
         while (resultSet.next()){
-            if (resultSet.getString("dept_code").startsWith("0215")){
+            if (resultSet.getString("dept_code").startsWith(Constant.PGZX_DEPT)){
                 sum[1]+=resultSet.getDouble("amount");
             }
         }
@@ -216,12 +247,12 @@ public class DeptUtils {
         return sum;
     }
 
-    public double pgzxDeptSum(Connection connection, String sql) throws SQLException {
+    public double pgzxDeptSum(String deptNum,Connection connection, String sql) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
         double sum = 0.0;
         while (resultSet.next()){
-            if (resultSet.getString("dept_code").startsWith(Constant.SDSJ_DEPT_INCOME.get(4))){
+            if (resultSet.getString("dept_code").startsWith(deptNum)){
                 sum+=resultSet.getDouble("amount");
             }
         }
@@ -339,6 +370,15 @@ public class DeptUtils {
         return sum;
     }
 
+    /**
+     * 获取除该部门，其他部门和
+     * @param deptNum
+     * @param connection
+     * @param sql
+     * @param sql1
+     * @return
+     * @throws SQLException
+     */
     public double singleDeptSum(String deptNum,Connection connection, String sql, String sql1) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -425,6 +465,14 @@ public class DeptUtils {
         return sum;
     }
 
+    /**
+     * 获取该部门和
+     * @param connection
+     * @param dept
+     * @param sql
+     * @return
+     * @throws SQLException
+     */
     public double singleDeptSum(Connection connection,String dept, String sql) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
