@@ -123,8 +123,13 @@ public class Constant {
     public final static String ACCOUNTS_RECEIVABLE="1122";//应收账款
     public final static String ACCOUNTS_RECEIVABLE_INVOICING="112201";//应收账款-开票
     public final static String ACCOUNTS_RECEIVABLE_ESTIMATED="112202";//应收账款-暂估
-
-
+    public final static String MAIN_BUSINESS_INCOME="6001";//主营业务收入
+    public final static String MAIN_BUSINESS_INCOME_INVOICING="600101";//主营业务收入-开票
+    public final static String MAIN_BUSINESS_COST="6401";//主营业务成本
+    public final static String OVERHEAD="6602";//管理费用
+    public final static String SELLING_EXPENSES="6601";//销售费用
+    public final static String INVENTORY="1403";//存货
+    public final static String RD_EXPENSES="5301";//研发支出
 
     /**
      * 日期

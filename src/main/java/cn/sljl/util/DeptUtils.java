@@ -21,19 +21,6 @@ import java.util.List;
  */
 public class DeptUtils {
 
-    /**
-     * 主表：监理-生产部门【借方】
-     * @param connection
-     * @param commonSql
-     * @param startDate
-     * @param endDate
-     * @param accountBook
-     * @param accountBook1
-     * @param ledgerAccount
-     * @param specificAccount
-     * @return
-     * @throws SQLException
-     */
     public double[] sljlManufactureDebit(Connection connection, CommonSql commonSql, String startDate, String endDate,
                                          String accountBook, String accountBook1, String ledgerAccount, String specificAccount) throws SQLException {
         return sljlManufactureDeptSum(connection,
@@ -48,19 +35,6 @@ public class DeptUtils {
                 commonSql.debitAmount(startDate,endDate,accountBook1,ledgerAccount));
     }
 
-    /**
-     * 主表：监理-生产部门【贷方】
-     * @param connection
-     * @param commonSql
-     * @param startDate
-     * @param endDate
-     * @param accountBook
-     * @param accountBook1
-     * @param ledgerAccount
-     * @param specificAccount
-     * @return
-     * @throws SQLException
-     */
     public double[] sljlManufactureCredit(Connection connection, CommonSql commonSql, String startDate, String endDate,
                                           String accountBook, String accountBook1, String ledgerAccount, String specificAccount) throws SQLException {
         return sljlManufactureDeptSum(connection,
@@ -75,81 +49,70 @@ public class DeptUtils {
                 commonSql.creditAmount(startDate,endDate,accountBook1,ledgerAccount));
     }
 
-    /**
-     * 监理-管理部门【借方】
-     * @param connection
-     * @param commonSql
-     * @param startDate
-     * @param endDate
-     * @param accountBook
-     * @param ledgerAccount
-     * @return
-     * @throws SQLException
-     */
     public double[] sljlOverheadDebit(Connection connection, CommonSql commonSql,String startDate, String endDate,
                                       String accountBook, String ledgerAccount) throws SQLException {
         return sljlOverheadDeptSum(connection,commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount));
     }
 
-    /**
-     * 评估咨询【贷方】
-     * @param connection
-     * @param commonSql
-     * @param startDate
-     * @param endDate
-     * @param accountBook
-     * @param accountBook1
-     * @param ledgerAccount
-     * @param specificAccount
-     * @return
-     * @throws SQLException
-     */
-    public double[] pgzxCredit(Connection connection, CommonSql commonSql,String startDate, String endDate,
+    public double[] pgzxCredit(String deptNum,Connection connection, CommonSql commonSql,String startDate, String endDate,
                                String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
-        return pgzxDeptSum(connection,
+        return pgzxDeptSum(deptNum,connection,
                 commonSql.creditAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount),
                 commonSql.creditAmount(startDate, endDate, accountBook1, ledgerAccount,specificAccount));
     }
 
-    /**
-     * 评估咨询【借方】
-     * @param connection
-     * @param commonSql
-     * @param startDate
-     * @param endDate
-     * @param accountBook
-     * @param accountBook1
-     * @param ledgerAccount
-     * @param specificAccount
-     * @return
-     * @throws SQLException
-     */
-    public double[] pgzxDebit(Connection connection, CommonSql commonSql, String startDate, String endDate,
+    public double[] pgzxCredit(String deptNum,Connection connection, CommonSql commonSql,String startDate, String endDate,
+                                   String accountBook,String accountBook1,String ledgerAccount) throws SQLException {
+        return pgzxDeptSum(deptNum,connection,
+                commonSql.creditAmount(startDate, endDate, accountBook, ledgerAccount),
+                commonSql.creditAmount(startDate, endDate, accountBook1, ledgerAccount));
+    }
+
+    public double[] pgzxDebit(String deptNum,Connection connection, CommonSql commonSql, String startDate, String endDate,
                               String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
-        return pgzxDeptSum(connection,
+        return pgzxDeptSum(deptNum,connection,
                 commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount),
                 commonSql.debitAmount(startDate, endDate, accountBook1, ledgerAccount,specificAccount));
     }
 
-    /**
-     * 单部门【借方】
-     * @param connection
-     * @param commonSql
-     * @param startDate
-     * @param endDate
-     * @param accountBook
-     * @param ledgerAccount
-     * @return
-     * @throws SQLException
-     */
+    public double[] hhakDebit(Connection connection, CommonSql commonSql,String startDate, String endDate,
+                              String accountBook, String ledgerAccount) throws SQLException {
+        return hhakDeptSum(connection,commonSql.debitAmount(startDate,endDate,accountBook,ledgerAccount));
+    }
+
+    public double[] hhakCredit(Connection connection, CommonSql commonSql,String startDate, String endDate,
+                               String accountBook, String ledgerAccount) throws SQLException {
+        return hhakDeptSum(connection,commonSql.creditAmount(startDate,endDate,accountBook,ledgerAccount));
+    }
+
+    public double[] hhakCredit(Connection connection, CommonSql commonSql,String startDate, String endDate,
+                               String accountBook, String ledgerAccount, String specificAccount) throws SQLException {
+        return hhakDeptSum(connection,commonSql.creditAmount(startDate,endDate,accountBook,ledgerAccount,specificAccount));
+    }
+
     public double singleDeptDebit(Connection connection, CommonSql commonSql, String startDate, String endDate,
                                   String accountBook, String ledgerAccount) throws SQLException {
         return singleDeptSum(connection,commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount));
     }
 
+    public double singleDeptCredit(Connection connection, CommonSql commonSql, String startDate, String endDate,
+                                  String accountBook, String ledgerAccount) throws SQLException {
+        return singleDeptSum(connection,commonSql.creditAmount(startDate, endDate, accountBook, ledgerAccount));
+    }
+
     public double singleDeptDebit(Connection connection, CommonSql commonSql,String startDate,String endDate,
                                   String accountBook, String ledgerAccount, String specificAccount) throws SQLException {
         return singleDeptSum(connection,commonSql.debitAmount(startDate,endDate,accountBook,ledgerAccount,specificAccount));
+    }
+
+    public double singleDeptDebit(String deptNum,Connection connection, CommonSql commonSql,String startDate, String endDate,
+                                   String accountBook, String ledgerAccount) throws SQLException {
+        return singleDeptSum(connection,deptNum,commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount));
+    }
+
+    public double singleDeptCredit(String deptNum,Connection connection, CommonSql commonSql,String startDate, String endDate,
+                                    String accountBook, String ledgerAccount) throws SQLException {
+        return singleDeptSum(connection,deptNum,commonSql.creditAmount(startDate, endDate, accountBook, ledgerAccount));
     }
 
     public double singleDeptDebit(Connection connection, CommonSql commonSql,String deptNum,String startDate, String endDate,
@@ -195,18 +158,7 @@ public class DeptUtils {
                 commonSql.creditAmount(startDate, endDate, accountBook1,ledgerAccount));
     }
 
-    /**
-     * pgzx dept sum
-     *
-     * @param connection 联系
-     * @param sql        sql
-     * @param sql1       sql1
-     * @return {@link double[] }
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:48
-     */
-    public double[] pgzxDeptSum(Connection connection, String sql, String sql1) throws SQLException {
+    public double[] pgzxDeptSum(String deptNum,Connection connection, String sql, String sql1) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
         double[] sum = new double[3];
@@ -219,7 +171,7 @@ public class DeptUtils {
         statement=connection.prepareStatement(sql1);
         resultSet= statement.executeQuery();
         while (resultSet.next()){
-            if (resultSet.getString("dept_code").startsWith(Constant.SDSJ_DEPT_INCOME.get(4)))
+            if (resultSet.getString("dept_code").startsWith(deptNum))//Constant.SDSJ_DEPT_INCOME.get(4)
             sum[2]+=resultSet.getDouble("amount");
         }
 
@@ -235,17 +187,6 @@ public class DeptUtils {
         return sum;
     }
 
-    /**
-     * pgzx部门sum1
-     *
-     * @param connection 联系
-     * @param sql        sql
-     * @param sql1       sql1
-     * @return {@link double[] }
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:48
-     */
     public double[] pgzxDeptSum1(Connection connection, String sql, String sql1) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -275,16 +216,6 @@ public class DeptUtils {
         return sum;
     }
 
-    /**
-     * pgzx dept sum
-     *
-     * @param connection 联系
-     * @param sql        sql
-     * @return double
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:48
-     */
     public double pgzxDeptSum(Connection connection, String sql) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -301,17 +232,6 @@ public class DeptUtils {
         return sum;
     }
 
-    /**
-     * 监理
-     *
-     * @param connection 联系
-     * @param sql        sql
-     * @param sql1       sql1
-     * @return {@link double[] }
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:48
-     */
     public double[] sljlManufactureDeptSum(Connection connection, String sql, String sql1) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -343,16 +263,6 @@ public class DeptUtils {
         return sum;
     }
 
-    /**
-     * sljl间接费用部门总额
-     *
-     * @param connection 联系
-     * @param sql        sql
-     * @return {@link double[] }
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:49
-     */
     public double[] sljlOverheadDeptSum(Connection connection,String sql) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -387,16 +297,6 @@ public class DeptUtils {
         return sum;
     }
 
-    /**
-     * 华海
-     *
-     * @param connection 联系
-     * @param sql        sql
-     * @return {@link double[] }
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:49
-     */
     public double[] hhakDeptSum(Connection connection, String sql) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -413,7 +313,8 @@ public class DeptUtils {
             }
         }
 
-        for (int i = 1; i < 5; i++) {
+        //测绘不并入华海
+        for (int i = 1; i < 4; i++) {
             sum[0]+=sum[i];
         }
 
@@ -424,17 +325,6 @@ public class DeptUtils {
         return sum;
     }
 
-
-    /**
-     * 恒远
-     *
-     * @param connection 联系
-     * @param sql        sql
-     * @return double
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:49
-     */
     public double singleDeptSum(Connection connection, String sql) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -449,17 +339,6 @@ public class DeptUtils {
         return sum;
     }
 
-    /**
-     * 设计收入部门
-     *
-     * @param connection
-     * @param sql
-     * @param sql1
-     * @return double
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:49
-     */
     public double singleDeptSum(String deptNum,Connection connection, String sql, String sql1) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -482,17 +361,6 @@ public class DeptUtils {
         return sum;
     }
 
-    /**
-     * 设计生产部门
-     *
-     * @param connection
-     * @param sql
-     * @param sql1
-     * @return double
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:49
-     */
     public double singleDeptSum2(Connection connection, String sql, String sql1) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -515,17 +383,6 @@ public class DeptUtils {
         return sum;
     }
 
-    /**
-     * 设计管理部门
-     *
-     * @param connection
-     * @param sql
-     * @param sql1
-     * @return double
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:49
-     */
     public double singleDeptSum3(Connection connection, String sql, String sql1) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -548,17 +405,6 @@ public class DeptUtils {
         return sum;
     }
 
-    /**
-     * 单一部门sum4
-     *
-     * @param connection 联系
-     * @param sql        sql
-     * @param sql1       sql1
-     * @return double
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:49
-     */
     public double singleDeptSum4(Connection connection, String sql, String sql1) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();
@@ -579,17 +425,6 @@ public class DeptUtils {
         return sum;
     }
 
-    /**
-     * 单部门合计
-     *
-     * @param connection 联系
-     * @param dept       部
-     * @param sql        sql
-     * @return double
-     * @throws SQLException SQLException
-     * @author wangeqiu
-     * @date 2024/04/09 09:58:50
-     */
     public double singleDeptSum(Connection connection,String dept, String sql) throws SQLException {
         PreparedStatement statement = connection.prepareStatement(sql);
         ResultSet resultSet = statement.executeQuery();

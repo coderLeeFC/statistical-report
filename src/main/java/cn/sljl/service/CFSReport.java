@@ -574,7 +574,7 @@ public class CFSReport {
      */
     private double[] pgzxMBCCredit(Connection connection, CommonSql commonSql, DeptUtils deptUtils,
                                    String startDate, String endDate, String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
-        return deptUtils.pgzxDeptSum(connection,
+        return deptUtils.pgzxDeptSum(Constant.SDSJ_DEPT_INCOME.get(4),connection,
                 commonSql.creditAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount),
                 commonSql.creditAmount(startDate, endDate, accountBook1, ledgerAccount,specificAccount));
     }
@@ -598,7 +598,7 @@ public class CFSReport {
      */
     private double[] pgzxMBCDebit1(Connection connection, CommonSql commonSql, DeptUtils deptUtils,
                                    String startDate, String endDate, String accountBook,String accountBook1,String ledgerAccount, String specificAccount) throws SQLException {
-        return deptUtils.pgzxDeptSum(connection,
+        return deptUtils.pgzxDeptSum(Constant.SDSJ_DEPT_INCOME.get(4),connection,
                 commonSql.debitAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount),
                 commonSql.debitAmount(startDate, endDate, accountBook1, ledgerAccount,specificAccount));
     }
