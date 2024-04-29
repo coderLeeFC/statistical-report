@@ -17,7 +17,7 @@ import java.util.List;
  * 营业成本-工资性支出
  * @author wangeqiu
  * @version 1.0
- * @date 2024/3/16 10:25
+ * @date 2024/4/29 08:48
  */
 public class SalaryReport {
     public void mainMethod(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, TitleModel titleModel) throws SQLException {
@@ -92,16 +92,6 @@ public class SalaryReport {
         return deptUtils.singleDeptSum(connection,Constant.SDSJ_OVERHEAD_DEPT.get(4),commonSql.quadraDebitAmount(startDate,endDate,accountBook,ledgerAccount,specificAccount));
     }
 
-    /**
-     * 造价咨询
-     * @param connection
-     * @param workbook
-     * @param sheet
-     * @param dateUtils
-     * @param commonSql
-     * @param deptUtils
-     * @throws SQLException
-     */
     private void getZjzxSalary(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         double zjzxTytmSalary= zjzxDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6401",Arrays.asList("640122","640123","640124","640125"));
         double zjzxTySalary  = zjzxDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6401",Arrays.asList("640122","640123","640124","640125"));
@@ -119,9 +109,6 @@ public class SalaryReport {
         return deptUtils.singleDeptSum(connection,Constant.ZJZX,commonSql.quadraDebitAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount));
     }
 
-    /**
-     * 招标代理
-     */
     private void getZbdlSalary(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         double zbdlTytmSalary= zbdlMBCDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6401",Arrays.asList("640122","640123","640124","640125"));
         double zbdlTySalary  = zbdlMBCDebit(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6401",Arrays.asList("640122","640123","640124","640125"));
@@ -139,40 +126,6 @@ public class SalaryReport {
         return deptUtils.singleDeptSum(connection,Constant.ZBDL,commonSql.quadraDebitAmount(startDate, endDate, accountBook, ledgerAccount,specificAccount));
     }
 
-    /**
-     * 监理-管理部门
-     */
-    private void getSljlOCSalary(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
-
-        double[] sljlOverheadTytm=sljlDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6602",Arrays.asList("660222","660223","660224","660225"));
-        double[] sljlOverheadTy  =sljlDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6602",Arrays.asList("660222","660223","660224","660225"));
-        double[] sljlOverheadLytm=sljlDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0), "6602",Arrays.asList("660222","660223","660224","660225"));
-        double[] sljlOverheadLy  =sljlDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0), "6602",Arrays.asList("660222","660223","660224","660225"));
-
-        double sljlSellingTytm= deptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6601",Arrays.asList("660122","660123","660124","660125"));
-        double sljlSellingTy  = deptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6601",Arrays.asList("660122","660123","660124","660125"));
-        double sljlSellingLytm= deptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0), "6601",Arrays.asList("660122","660123","660124","660125"));
-        double sljlSellingLy  = deptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0), "6601",Arrays.asList("660122","660123","660124","660125"));
-
-        sljlOverheadTytm[0]+=sljlSellingTytm;
-        sljlOverheadTy  [0]+=sljlSellingTy  ;
-        sljlOverheadLytm[0]+=sljlSellingLytm;
-        sljlOverheadLy  [0]+=sljlSellingLy  ;
-
-        deptUtils.outputMBExel(Constant.SLJL_MANAGE_DEPT_NAME,workbook,sheet,5,2,
-                sljlOverheadTytm,
-                sljlOverheadTy,
-                sljlOverheadLytm,
-                sljlOverheadLy  ,
-                sljlSellingTytm,
-                sljlSellingTy,
-                sljlSellingLytm,
-                sljlSellingLy  );
-    }
-
-    /**
-     * 设计
-     */
     private void getSDSJSalary(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         //管理部门
         double sdsjOverheadTytm=sdsjDeptSumSalary1(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(3),Constant.ACCOUNTING_BOOK.get(4), "6602",Arrays.asList("660222","660223","660224","660225"));
@@ -239,9 +192,6 @@ public class SalaryReport {
         return deptUtils.singleDeptSum(connection,commonSql.tripleDebitAmount(startDate,endDate,accountBook,ledgerAccount,specificAccount));
     }
 
-    /**
-     * 恒远
-     */
     private void getHYJCSalary(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         //管理部门
         double hyjcTytmSalary1= deptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(2), "6602",Arrays.asList("660222","660223","660224","660225"));
@@ -273,9 +223,6 @@ public class SalaryReport {
                 hyjcSumLy  );
     }
 
-    /**
-     * 华海
-     */
     private void getHHAKSalary(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         //管理部门
         double hhakTytmSalary1= deptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(1), "6602",Arrays.asList("660222","660223","660224","660225"));
@@ -320,9 +267,6 @@ public class SalaryReport {
         return deptUtils.hhakDeptSum(connection,commonSql.quadraDebitAmount(startDate,endDate,accountBook,ledgerAccount,specificAccount));
     }
 
-    /**
-     * 监理-生产部门
-     */
     private void getSLJLSalary(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
         //生产部门
         double[] sljlTytmSalary3=sljlDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0),Constant.ACCOUNTING_BOOK.get(5), "6401",Arrays.asList("640122","640123","640124","640125"));
@@ -349,6 +293,33 @@ public class SalaryReport {
         return deptUtils.sljlOverheadDeptSum(connection,commonSql.quadraDebitAmount(startDate,endDate,accountBook,ledgerAccount,specificAccount));
     }
 
+    private void getSljlOCSalary(Connection connection, XSSFWorkbook workbook, XSSFSheet sheet, DateUtils dateUtils, CommonSql commonSql, DeptUtils deptUtils) throws SQLException {
+
+        double[] sljlOverheadTytm=sljlDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6602",Arrays.asList("660222","660223","660224","660225"));
+        double[] sljlOverheadTy  =sljlDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6602",Arrays.asList("660222","660223","660224","660225"));
+        double[] sljlOverheadLytm=sljlDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0), "6602",Arrays.asList("660222","660223","660224","660225"));
+        double[] sljlOverheadLy  =sljlDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0), "6602",Arrays.asList("660222","660223","660224","660225"));
+
+        double sljlSellingTytm= deptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6601",Arrays.asList("660122","660123","660124","660125"));
+        double sljlSellingTy  = deptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(0), "6601",Arrays.asList("660122","660123","660124","660125"));
+        double sljlSellingLytm= deptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0), "6601",Arrays.asList("660122","660123","660124","660125"));
+        double sljlSellingLy  = deptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(0), "6601",Arrays.asList("660122","660123","660124","660125"));
+
+        sljlOverheadTytm[0]+=sljlSellingTytm;
+        sljlOverheadTy  [0]+=sljlSellingTy  ;
+        sljlOverheadLytm[0]+=sljlSellingLytm;
+        sljlOverheadLy  [0]+=sljlSellingLy  ;
+
+        deptUtils.outputMBExel(Constant.SLJL_MANAGE_DEPT_NAME,workbook,sheet,5,2,
+                sljlOverheadTytm,
+                sljlOverheadTy,
+                sljlOverheadLytm,
+                sljlOverheadLy  ,
+                sljlSellingTytm,
+                sljlSellingTy,
+                sljlSellingLytm,
+                sljlSellingLy  );
+    }
     /**
      *无部门划分
      */
