@@ -134,6 +134,6 @@ public class Constant {
     /**
      * 日期
      */
-    public final static String THIS_MONTH_END="2024-03-31";
+    public final static String THIS_MONTH_END="2024-04-30";
 
 }
