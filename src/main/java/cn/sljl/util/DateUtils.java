@@ -105,4 +105,36 @@ public class DateUtils {
      * @date 2024/03/20 15:35:46
      */
     public String getBeginningOfYear1(String endOfMonth) { return (calendar.get(Calendar.YEAR) - 1) + getBeginningOfYear(endOfMonth).substring(4);}
+
+    /**
+     * 获取季度初
+     * @param endOfMonth
+     * @return
+     */
+    public String getBeginningOfQuarter(String endOfMonth){
+        if (endOfMonth.substring(5,7).startsWith("01")||endOfMonth.substring(5,7).startsWith("02")||endOfMonth.substring(5,7).startsWith("03")){
+            return calendar.get(Calendar.YEAR)+"-01-01";
+        }else if (endOfMonth.substring(5,7).startsWith("04")||endOfMonth.substring(5,7).startsWith("05")||endOfMonth.substring(5,7).startsWith("06")){
+            return calendar.get(Calendar.YEAR)+"-04-01";
+        }else if (endOfMonth.substring(5,7).startsWith("07")||endOfMonth.substring(5,7).startsWith("08")||endOfMonth.substring(5,7).startsWith("09")){
+            return calendar.get(Calendar.YEAR)+"-07-01";
+        }
+        return calendar.get(Calendar.YEAR)+"-10-01";
+    }
+
+    /**
+     * 获取去年季度初
+     * @param endOfMonth
+     * @return
+     */
+    public String getBeginningOfQuarter1(String endOfMonth){
+        if (endOfMonth.substring(5,7).startsWith("01")||endOfMonth.substring(5,7).startsWith("02")||endOfMonth.substring(5,7).startsWith("03")){
+            return (calendar.get(Calendar.YEAR) - 1)+"-01-01";
+        }else if (endOfMonth.substring(5,7).startsWith("04")||endOfMonth.substring(5,7).startsWith("05")||endOfMonth.substring(5,7).startsWith("06")){
+            return (calendar.get(Calendar.YEAR) - 1)+"-04-01";
+        }else if (endOfMonth.substring(5,7).startsWith("07")||endOfMonth.substring(5,7).startsWith("08")||endOfMonth.substring(5,7).startsWith("09")){
+            return (calendar.get(Calendar.YEAR) - 1)+"-07-01";
+        }
+        return (calendar.get(Calendar.YEAR) - 1)+"-10-01";
+    }
 }
