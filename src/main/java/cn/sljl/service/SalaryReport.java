@@ -242,10 +242,10 @@ public class SalaryReport {
         double[] hhakLytmSalary3= hhakDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(1), "6401",Arrays.asList("640122","640123","640124","640125"));
         double[] hhakLySalary3  = hhakDeptSumSalary(connection, commonSql, deptUtils, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(1), "6401",Arrays.asList("640122","640123","640124","640125"));
 
-        hhakTytmSalary3[1]+=hhakTytmSalary2;
-        hhakTySalary3[1]+=hhakTySalary2  ;
-        hhakLytmSalary3[1]+=hhakLytmSalary2;
-        hhakLySalary3[1]+=hhakLySalary2  ;
+        hhakTytmSalary3[1]+=hhakTytmSalary2+hhakTytmSalary1;
+        hhakTySalary3[1]+=hhakTySalary2  +hhakTySalary1  ;
+        hhakLytmSalary3[1]+=hhakLytmSalary2+hhakLytmSalary1;
+        hhakLySalary3[1]+=hhakLySalary2  +hhakLySalary1 ;
 
         hhakTytmSalary3[0]+=hhakTytmSalary2+hhakTytmSalary1;
         hhakTySalary3[0]+=hhakTySalary2    +hhakTySalary1  ;

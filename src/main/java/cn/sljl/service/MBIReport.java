@@ -273,10 +273,10 @@ public class MBIReport {
         hhakMBCLy  [0]+=(hhakOCLy  +hhakSCLy  );
 
         //北京营业总成本
-        hhakMBCTytm[1]+=hhakSCTytm;
-        hhakMBCTy  [1]+=hhakSCTy  ;
-        hhakMBCLytm[1]+=hhakSCLytm;
-        hhakMBCLy  [1]+=hhakSCLy  ;
+        hhakMBCTytm[1]+=(hhakOCTytm+hhakSCTytm);
+        hhakMBCTy  [1]+=(hhakOCTy  +hhakSCTy  );
+        hhakMBCLytm[1]+=(hhakOCLytm+hhakSCLytm);
+        hhakMBCLy  [1]+=(hhakOCLy  +hhakSCLy  );
 
         //毛利率
         double[] hhakGrossMarginTytm=new double[hhakMBCTytm.length];

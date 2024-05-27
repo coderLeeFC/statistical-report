@@ -30,7 +30,6 @@ public class InvoiceReportTest {
         FileOutputStream fileOutputStream = new FileOutputStream("D:\\生产经营部综合统计报表.xlsx");
         workbook.write(fileOutputStream);
 
-        System.out.println(new DateUtils().getBeginningOfQuarter(Constant.THIS_MONTH_END));
 
         //释放资源
         fileOutputStream.flush();

@@ -35,7 +35,7 @@ public class Test {
         XSSFSheet sheetSR = workbook.createSheet("人工成本");//创建sheet
         new SalaryReport().mainMethod(connection,workbook, sheetSR,titleModel);//设置数据
 
-        FileOutputStream fileOutputStream = new FileOutputStream("D:\\综合统计报表x.xlsx");
+        FileOutputStream fileOutputStream = new FileOutputStream("D:\\综合统计报表.xlsx");
         workbook.write(fileOutputStream);
 
         //释放资源
