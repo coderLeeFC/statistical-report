@@ -552,6 +552,18 @@ public class CFSReport {
         double hhakLytm= deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(1), Constant.MAIN_BUSINESS_COST);
         double hhakLy  = deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(1), Constant.MAIN_BUSINESS_COST);
 
+        //管理费用
+        double hhakOCTytm= deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(1), Constant.OVERHEAD);
+        double hhakOCTy  = deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(1), Constant.OVERHEAD);
+        double hhakOCLytm= deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(1), Constant.OVERHEAD);
+        double hhakOCLy  = deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(1), Constant.OVERHEAD);
+
+        //销售费用
+        double hhakSCTytm= deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(1), Constant.SELLING_EXPENSES);
+        double hhakSCTy  = deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                          Constant.ACCOUNTING_BOOK.get(1), Constant.SELLING_EXPENSES);
+        double hhakSCLytm= deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfMonth1(Constant.THIS_MONTH_END),dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(1), Constant.SELLING_EXPENSES);
+        double hhakSCLy  = deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END), Constant.ACCOUNTING_BOOK.get(1), Constant.SELLING_EXPENSES);
+
         //应收账款-开票（借方）
         double hhakInvoiceTytm = deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfMonth(Constant.THIS_MONTH_END), Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(1),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
         double hhakInvoiceTy   = deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfYear(Constant.THIS_MONTH_END),  Constant.THIS_MONTH_END,                         Constant.ACCOUNTING_BOOK.get(1),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
@@ -559,10 +571,10 @@ public class CFSReport {
         double hhakInvoiceLy   = deptUtils.singleDeptDebit(connection, commonSql, dateUtils.getBeginningOfYear1(Constant.THIS_MONTH_END), dateUtils.getEndOfMonth(Constant.THIS_MONTH_END),Constant.ACCOUNTING_BOOK.get(1),Constant.ACCOUNTS_RECEIVABLE,Constant.ACCOUNTS_RECEIVABLE_INVOICING);
 
         //现金流出
-        double hhakOutTytm=hhakTytm+hhakInvoiceTytm/1.06*0.06*1.12;
-        double hhakOutTy  =hhakTy  +hhakInvoiceTy  /1.06*0.06*1.12;
-        double hhakOutLytm=hhakLytm+hhakInvoiceLytm/1.06*0.06*1.12;
-        double hhakOutLy  =hhakLy  +hhakInvoiceLy  /1.06*0.06*1.12;
+        double hhakOutTytm=hhakOCTytm+hhakSCTytm+hhakTytm+hhakInvoiceTytm/1.06*0.06*1.12;
+        double hhakOutTy  =hhakOCTy  +hhakSCTy  +hhakTy  +hhakInvoiceTy  /1.06*0.06*1.12;
+        double hhakOutLytm=hhakOCLytm+hhakSCLytm+hhakLytm+hhakInvoiceLytm/1.06*0.06*1.12;
+        double hhakOutLy  =hhakOCLy  +hhakSCLy  +hhakLy  +hhakInvoiceLy  /1.06*0.06*1.12;
 
         double hhakMinusTytm=hhakInTytm-hhakOutTytm;
         double hhakMinusTy  =hhakInTy  -hhakOutTy  ;
